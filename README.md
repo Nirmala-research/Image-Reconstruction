@@ -16,6 +16,13 @@
   scikit-image 0.19.3
   
   numpy 1.14.5
+  
+  This was tested on Python 3.7. To install the required packages, use the provided requirements.txt file like so:
+            
+```
+pip install -r requirements.txt
+```
+            
 
 ## Datasets
   ISIC Challenge Datasets 2020  https://challenge.isic-archive.com/data/#2020
@@ -27,8 +34,27 @@
   MELLIGAN
   
   https://drive.google.com/file/d/1FV0T8C_0Z6oMUuvOq9ELs6EsXqxLuS5O/view?usp=share_link
-  ## Experimental Results
-     The experimental results on the benchmark datasets.
+## Input Size changing
+The provided model was trained on ISIC 2019, PH2 dataset and mednode image inputs, but to run it on inputs of arbitrary size, you'll have to change the input shape as given
+```
+from tensorflow import keras
+
+# Load the model
+model = keras.models.load_model('models/generator.h5')
+
+# Define arbitrary spatial dims, and 3 channels.
+inputs = keras.Input((None, None, 3))
+
+# Trace out the graph using the input:
+outputs = model(inputs)
+
+# Override the model:
+model = keras.models.Model(inputs, outputs)
+
+# Now you are free to predict on images of any size.
+```
+## Experimental Results
+  The experimental results on the benchmark datasets.
   ### Quantitave Results
   | Algorithm|  | Bicubic | ESPCN | SRGAN | ESRGAN | MELLIGAN (MY model)|
   | ---------|--| ------- |-------|-------|--------|--------|
@@ -44,5 +70,13 @@
 
 ## Comments
   The queries and comments on my codes can be forwarded to v.nirmalaresearch@gmail.com
+## Contributors
+<!-- Copy-paste in your Readme.md file -->
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo = GitHub_username/repository_name"/>
+</a>
+
+Made with [contributors-img](https://contrib.rocks)
 
  
